@@ -21,7 +21,7 @@ public class GenericDAO<T, PK extends Serializable> implements Dao<T, PK>{
     }
  
     private Session getSession() {
-        return factory.getCurrentSession();
+        return this.factory.getCurrentSession();
     }
  
     public void remove(final T t) {
@@ -41,4 +41,9 @@ public class GenericDAO<T, PK extends Serializable> implements Dao<T, PK>{
     public void atualiza(final T t) {
         getSession().merge(t);
     }
+
+	public void remove(PK id) {
+		T t = this.busca(id);
+		this.remove(t);
+	}
 }

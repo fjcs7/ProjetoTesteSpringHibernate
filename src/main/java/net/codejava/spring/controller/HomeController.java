@@ -25,13 +25,9 @@ public class HomeController {
 	@Autowired
 	private UserDAO userDao;
 	
-	@Autowired
-	private RedeSocialDAO redeSocialDao;
-
 	@RequestMapping("/")
 	public ModelAndView handleRequest() throws Exception {
-		List<User> listUsers = userDao.list();
-		List<RedeSocial> listaRedes = redeSocialDao.lista();
+		List<User> listUsers = userDao.lista();
 		ModelAndView model = new ModelAndView("UserList");
 		model.addObject("userList", listUsers);
 		return model;
@@ -47,7 +43,7 @@ public class HomeController {
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView editUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
-		User user = userDao.get(userId);
+		User user = userDao.busca(userId);
 		ModelAndView model = new ModelAndView("UserForm");
 		model.addObject("user", user);
 		return model;		
@@ -56,13 +52,13 @@ public class HomeController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView deleteUser(HttpServletRequest request) {
 		int userId = Integer.parseInt(request.getParameter("id"));
-		userDao.delete(userId);
+		userDao.remove(userId);
 		return new ModelAndView("redirect:/");		
 	}
 	
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView saveUser(@ModelAttribute User user) {
-		userDao.saveOrUpdate(user);
+		userDao.atualiza(user);
 		return new ModelAndView("redirect:/");
 	}
 	

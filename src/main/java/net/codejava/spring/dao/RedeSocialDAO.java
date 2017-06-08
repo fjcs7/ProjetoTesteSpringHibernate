@@ -36,4 +36,8 @@ public class RedeSocialDAO implements RedeSocialDAOI{
 	public void atualiza(RedeSocial t) {
 		dao.atualiza(t);
 	}
+
+	public void remove(Integer id) {
+		dao.remove(id);
+	}
 }
