@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import net.codejava.spring.dao.RedeSocialDAO;
+import net.codejava.spring.dao.RedeSocialDAOI;
 import net.codejava.spring.dao.UserDAO;
 import net.codejava.spring.dao.UserDAOImpl;
 import net.codejava.spring.model.User;
@@ -57,7 +59,7 @@ public class ApplicationContextConfig {
     public SessionFactory getSessionFactory(DataSource dataSource) {
     	LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
     	sessionBuilder.addProperties(getHibernateProperties());
-    	sessionBuilder.addPackages("net.codejava.spring");
+    	sessionBuilder.addAnnotatedClasses(User.class);
     	return sessionBuilder.buildSessionFactory();
     }
     
@@ -70,5 +72,16 @@ public class ApplicationContextConfig {
 
 		return transactionManager;
 	}
-	
+    
+    @Autowired
+    @Bean(name = "userDao")
+    public UserDAO getUserDao(SessionFactory sessionFactory) {
+    	return new UserDAOImpl(sessionFactory);
+    }
+    
+    @Autowired
+    @Bean(name = "redeSocialDao")
+    public RedeSocialDAOI getRedeSocialDAO(SessionFactory sessionFactory) {
+    	return new RedeSocialDAO(sessionFactory);
+    }
 }

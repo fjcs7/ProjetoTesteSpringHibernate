@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import net.codejava.spring.model.RedeSocial;
 
 @Repository
-public class RedeSocialDAO implements Dao<RedeSocial, Integer>{
+public class RedeSocialDAO implements RedeSocialDAOI{
     private final GenericDAO<RedeSocial,Integer> dao;
     
     @Autowired

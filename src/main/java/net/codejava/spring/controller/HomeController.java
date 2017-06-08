@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import net.codejava.spring.dao.RedeSocialDAO;
 import net.codejava.spring.dao.UserDAO;
+import net.codejava.spring.model.RedeSocial;
 import net.codejava.spring.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,14 @@ public class HomeController {
 	
 	@Autowired
 	private UserDAO userDao;
+	
+	@Autowired
+	private RedeSocialDAO redeSocialDao;
 
 	@RequestMapping("/")
 	public ModelAndView handleRequest() throws Exception {
 		List<User> listUsers = userDao.list();
+		List<RedeSocial> listaRedes = redeSocialDao.lista();
 		ModelAndView model = new ModelAndView("UserList");
 		model.addObject("userList", listUsers);
 		return model;

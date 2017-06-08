@@ -2,15 +2,16 @@ package net.codejava.spring.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="rede_social")
 public class RedeSocial{
 	@Id
 	private Integer id;
-	@Column
 	private String nomeRede;
-	@Column
 	private String profile;
 	
 	//Metodos Getters and Setters
@@ -26,6 +27,9 @@ public class RedeSocial{
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+	@Id
+	@GeneratedValue
+	@Column(name = "RDS_ID")
 	public Integer getId() {
 		return id;
 	}
